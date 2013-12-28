@@ -1,11 +1,9 @@
 require 'sinatra'
-require 'uuid'
 
 before do
   content_type :txt
-  @defeat = {rock: :scissors, paper: :rock, scissors: :paper}
+  @defeat = { rock: :scissors, paper: :rock, scissors: :paper }
   @throws = @defeat.keys
-  @guid = UUID.new.generate
 end
 
 get '/throw/:type' do
@@ -24,23 +22,4 @@ get '/throw/:type' do
   else
     "You lose!"
   end
-end
-
-get '/request' do
-  request.env.map { |e| e.to_s + '\n'  }
-end
-
-
-get '/request_methods' do
-  request.methods.map { |e| e.to_s + '\n'  }
-end
-
-get '/caching' do
-  expires 3600, :public, :must_revalidate
-    "This page rendered at #{Time.now}"
-end
-
-get '/etag' do
-  etag @guid
-  "This resource has an ETag value of #{@guid}"
 end
