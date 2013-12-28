@@ -7,6 +7,15 @@ require File.join(File.dirname(__FILE__), '..', '..', 'server.rb')
 require 'capybara'
 require 'capybara/cucumber'
 require 'rspec'
+require 'rack/test'
+
+module AppHelper
+  def app
+    App
+  end
+end
+
+World(Rack::Test::Methods, AppHelper)
 
 Capybara.app = App
 

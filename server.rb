@@ -1,7 +1,9 @@
 require 'sinatra/base'
 require 'uuid'
+require 'json'
 
 class App < Sinatra::Base
+  set :data, ""
   configure do
     enable :sessions
   end
@@ -104,6 +106,11 @@ class App < Sinatra::Base
     end
 
     "Sent #{params[:message]} to all clients"
+  end
+
+  get '/songs' do
+    content_type :json
+    App.data.to_json
   end
 
   # start the server if ruby file executed directly
